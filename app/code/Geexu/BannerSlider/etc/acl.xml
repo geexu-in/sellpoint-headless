@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Geexubanner_BannerSlider::BannerSlider" sortOrder="10" title="BannerSlider">
+					<resource id="Geexubanner_BannerSlider::BannerSlider_save" sortOrder="10" title="Save BannerSlider"/>
+					<resource id="Geexubanner_BannerSlider::BannerSlider_delete" sortOrder="20" title="Delete BannerSlider"/>
+					<resource id="Geexubanner_BannerSlider::BannerSlider_update" sortOrder="30" title="Update BannerSlider"/>
+					<resource id="Geexubanner_BannerSlider::BannerSlider_view" sortOrder="40" title="View BannerSlider"/>
+				</resource>
+				<resource id="Geexubanner_BannerSlider::Banners" sortOrder="10" title="Banners">
+					<resource id="Geexubanner_BannerSlider::Banners_save" sortOrder="10" title="Save Banners"/>
+					<resource id="Geexubanner_BannerSlider::Banners_delete" sortOrder="20" title="Delete Banners"/>
+					<resource id="Geexubanner_BannerSlider::Banners_update" sortOrder="30" title="Update Banners"/>
+					<resource id="Geexubanner_BannerSlider::Banners_view" sortOrder="40" title="View Banners"/>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Geexu_BannerSlider::config_geexu_bannerslider" title="banner_slider"/>
+						</resource>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

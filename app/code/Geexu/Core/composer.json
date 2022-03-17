@@ -1,0 +1,23 @@
+{
+  "name": "geexu/module-core",
+  "description": "Geexu Core for Magento 2",
+  "type": "magento2-module",
+  "version": "1.4.10",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Geexu",
+      "email": "support@geexu.com",
+      "homepage": "https://www.geexu.com",
+      "role": "Technical Support"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Geexu\\Core\\": ""
+    }
+  }
+}

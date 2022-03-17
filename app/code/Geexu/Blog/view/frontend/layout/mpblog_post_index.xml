@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="mpblog_design"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Geexu\Blog\Block\Post\Listpost" name="mpblog.post.list" as="mpblog_post" template="post/list.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="mpblog.copy.right" after="-" template="Geexu_Blog::html/copyright.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
+

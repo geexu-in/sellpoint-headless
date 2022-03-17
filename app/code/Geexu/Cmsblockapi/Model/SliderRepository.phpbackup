@@ -1,0 +1,223 @@
+<?php
+
+namespace Geexu\Cmsblockapi\Model;
+
+use Magento\Framework\Api\DataObjectHelper;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Store\Model\StoreManagerInterface;
+use Geexu\Cmsblockapi\Api\SliderRepositoryInterface;
+
+class SliderRepository implements SliderRepositoryInterface
+{
+    /**
+     * Retrieve product block collection by block id
+     * @param string $id
+     * @return string[]
+     */
+    public function getblockdata($identifier)
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+        $blockRepository = $objectManager->get('Magento\Cms\Api\BlockRepositoryInterface');
+        $searchCriteriaBuilder = $objectManager->get('Magento\Framework\Api\SearchCriteriaBuilder');
+
+        $searchCriteria = $searchCriteriaBuilder->addFilter('identifier', $identifier,'eq')->create();
+        $cmsBlocks = $blockRepository->getList($searchCriteria)->getItems();
+
+
+        $result = [];
+        foreach($cmsBlocks as $cmsBlock){
+            $someJSON = strip_tags($cmsBlock->getContent());
+            $someObject = json_decode(preg_replace('~[\r\n]+~', '', $someJSON));
+            
+       }
+       foreach ($someObject as $key => $value) {
+            $content = ["image"=>$value->imagepath,"subtitle"=>$value->subtitle,"button"=>$value->button,"link"=>$value->link];
+            array_push($result,$content);
+        }
+    
+        $cmsblockdata[] = ["active"=>$cmsBlock->getIsActive(),"blockid"=>$cmsBlock->getId(),"title"=>$cmsBlock->getTitle(),"identifier"=>$cmsBlock->getIdentifier(),"meta title"=> $cmsBlock->getMetaTitle(),"meta desc"=>$cmsBlock->getMetaDescription(),"content"=>$result];
+        return $cmsblockdata;
+    }
+    /**
+     * Retrieve cms page collection by page url
+     * @param string $url
+     * @return string[]
+     */
+    public function getcmspagedata($urlKey)
+    {
+        //$urlKey = 'our-story';
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $pageRepository = $objectManager->get('Magento\Cms\Api\PageRepositoryInterface');
+        $searchCriteriaBuilder = $objectManager->get('Magento\Framework\Api\SearchCriteriaBuilder');
+        $searchCriteria = $searchCriteriaBuilder->addFilter('identifier', $urlKey,'eq')->create();
+        $cmsPages = $pageRepository->getList($searchCriteria)->getItems();
+        $result = [];
+        foreach($cmsPages as $cmsPage){
+            $someJSON = strip_tags($cmsPage->getContent());
+            $someObject = json_decode(preg_replace('~[\r\n]+~', '', $someJSON));
+            
+       }
+       foreach ($someObject as $key => $value) {
+        $content = ["bannerimg"=>$value->bannerimg,"img"=>$value->img,"title"=>$value->title,"maintitle"=>$value->maintitle,"desc"=>$value->desc,"subtitle"=>$value->subtitle,"subpoints"=>$value->subpoints];
+        array_push($result,$content);
+    }
+    
+        $cmspagedata[] = ["active"=>$cmsPage->getIsActive(),"pageid"=>$cmsPage->getId(),"title"=>$cmsPage->getTitle(),"identifier"=>$cmsPage->getIdentifier(),"meta title"=> $cmsPage->getMetaTitle(),"meta desc"=>$cmsPage->getMetaDescription(),"content"=>$result];
+        return $cmspagedata;
+    }
+    /**
+     * Retrieve product customer collection by slider id
+     * @param string $id
+     * @return string[]
+     */
+    public function getId($customerid)
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        //$lastyear = date('Y-m-d', strtotime("-1 year"));
+        $orderCollection = $objectManager->create('\Magento\Sales\Model\ResourceModel\Order\Collection');
+        $orderCollection->addAttributeToFilter('customer_id',$customerid);
+                    
+        foreach($orderCollection->getData() as $order){
+            $data[] = $order;
+        }
+        return $data;
+    }
+    /**
+     * Retrieve product customer collection by slider id
+     * @param string $id
+     * @return string[]
+     */
+    public function getProductsbyCategoryUrl($categoryurl)
+    {
+        $title = $categoryurl;
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $categorysFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+		$productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+        $collection = $categorysFactory->create()->getCollection()->addFieldToFilter('url_key',$title);
+        //echo "<pre>";
+        //print_r($collection->getData());
+        $categoryDetails [] = $collection->getData();
+
+		$simplePrice = 0;
+		$_savingPercent = 0;
+            
+        foreach ($categoryDetails as $product) {
+            
+              $category_id = $product[0]['entity_id'];
+            
+        }
+        $categoryId = $category_id; // YOUR CATEGORY ID
+        $category = $categorysFactory->create()->load($categoryId);
+    
+        $categoryProducts = $category->getProductCollection()
+        ->addAttributeToSelect('*');
+            
+        $result = [];
+        foreach ($categoryProducts as $product) {
+            // get Product data
+            if($product->getSku()){
+                $_product = $productRepository->get($product->getSku());
+                if($product->getTypeId() == "simple") {
+                    $simplePrice = $_product->getPrice();
+                    $_finalPrice =$_product->getFinalPrice();
+                } 
+                else {
+                        $_children = $_product->getTypeInstance()->getUsedProducts($_product);
+                        foreach ($_children as $child){
+                        $simplePrice = $child->getPrice();
+                        break;
+                    }
+                }
+                    $save = (array) null;
+                    $_finalPrice =$_product->getFinalPrice();
+                    $_price = $simplePrice;
+                    if($_finalPrice < $_price) {
+                    $_savingPercent = 100 - round(($_finalPrice / $_price)*100);
+                    // $save = ["save"=>$_savingPercent."%"];
+                    $product["save"] = $_savingPercent."%";
+                    // array_push($productdata,$save);
+                }
+            }
+            $productdata[] = $product->getData();
+
+        }
+        return $productdata;
+    }
+    /**
+     * Retrieve product customer collection by product sku
+     * @param string $id
+     * @return string[]
+     */
+    public function getProductSalableQty($sku)
+    {
+        //$sku='CACC';
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $StockState = $objectManager->get('\Magento\InventorySalesAdminUi\Model\GetSalableQuantityDataBySku');
+        $productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+        $qty = $StockState->execute($sku);
+        if(($qty[0]['qty'])==0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public function getProductDiscount($sku)
+    {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+
+		$productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+		$_product = $productRepository->get($sku);
+
+		$simplePrice = 0;
+		$_savingPercent = 0;
+		if($_product->getTypeId() == "simple") {
+			$simplePrice = $_product->getPrice();
+		} 
+		else {
+			$_children = $_product->getTypeInstance()->getUsedProducts($_product);
+				foreach ($_children as $child){
+				$simplePrice = $child->getPrice();
+				break;
+			}
+		}
+
+		$_finalPrice =$_product->getFinalPrice();
+		$_price = $simplePrice;
+		if($_finalPrice < $_price) {
+		$_savingPercent = 100 - round(($_finalPrice / $_price)*100);
+        $savingPercent = $_savingPercent . '%';
+		return $savingPercent;
+	    }
+    }
+    public function getSizechart()
+    {
+       // echo "Hello World";
+		//  $storeId = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Store\Model\StoreManagerInterface::class)->getStore()->getId();
+		//  echo $storeId $objectManager =   \Magento\Framework\App\ObjectManager::getInstance();
+ 		$objectManager =   \Magento\Framework\App\ObjectManager::getInstance();  
+		$connection = $objectManager->get('Magento\Framework\App\ResourceConnection')->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION'); 
+            
+		$result1 = $connection->fetchAll("SELECT * FROM sizechart_management");
+        //$description =  $connection->fetchAll("SELECT description FROM sizechart_management");
+        $result = [];
+
+        foreach($result1 as $sizechart){
+            $sizechart = $sizechart['description'];
+            $someObject = json_decode(preg_replace('~[\r\n]+~', '', $sizechart));
+        }
+        foreach ($someObject as $key => $value) {
+            $content = ["title"=>$value->title,"subtitle"=>$value->subtitle,"sizechart"=>$value->sizechart];
+            array_push($result,$content);
+        }
+        
+        return $result;
+		//echo "<pre>";
+		//print_r($content);          
+    }
+}

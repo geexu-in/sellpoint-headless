@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Geexu_Blog::blog" title="Better Blog" module="Geexu_Blog" sortOrder="110" resource="Geexu_Blog::blog" parent="Magento_Backend::content"/>
+        <add id="Geexu_Blog::post" title="Manage Posts" module="Geexu_Blog" sortOrder="10" action="geexu_blog/post" resource="Geexu_Blog::post" parent="Geexu_Blog::blog"/>
+        <add id="Geexu_Blog::tag" title="Manage Tags" module="Geexu_Blog" sortOrder="20" action="geexu_blog/tag" resource="Geexu_Blog::tag" parent="Geexu_Blog::blog"/>
+<!--        <add id="Geexu_Blog::topic" title="Manage Topics" module="Geexu_Blog" sortOrder="30" action="geexu_blog/topic" resource="Geexu_Blog::topic" parent="Geexu_Blog::blog"/>-->
+        <add id="Geexu_Blog::category" title="Categories" module="Geexu_Blog" sortOrder="40" action="geexu_blog/category" resource="Geexu_Blog::category" parent="Geexu_Blog::blog"/>
+<!--        <add id="Geexu_Blog::author" title="Manage Authors" module="Geexu_Blog" sortOrder="50" action="geexu_blog/author" resource="Geexu_Blog::author" parent="Geexu_Blog::blog"/>-->
+        <add id="Geexu_Blog::comment" title="Manage Comments" module="Geexu_Blog" sortOrder="60" action="geexu_blog/comment" resource="Geexu_Blog::comment" parent="Geexu_Blog::blog"/>
+        <add id="Geexu_Blog::import" title="Import" module="Geexu_Blog" sortOrder="65" action="geexu_blog/import/edit" resource="Geexu_Blog::import" parent="Geexu_Blog::blog"/>
+        <add id="Geexu_Blog::configuration" title="Configuration" module="Geexu_Blog" sortOrder="1000" action="adminhtml/system_config/edit/section/blog" resource="Geexu_Blog::configuration" parent="Geexu_Blog::blog"/>
+    </menu>
+</config>

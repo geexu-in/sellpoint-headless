@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- test api block  -->
+
+    <route url="/V1/geexu-cmsblock/blockdata" method="GET">
+        <service class="Geexu\Cmsblockapi\Api\SliderRepositoryInterface" method="getblockdata"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-cmspage/pagedata" method="GET">
+        <service class="Geexu\Cmsblockapi\Api\SliderRepositoryInterface" method="getcmspagedata"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-customerorder/:customerId" method="GET">
+        <service class="Geexu\Cmsblockapi\Api\SliderRepositoryInterface" method="getId"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-categoryproduct-data/:categoryurl" method="GET">
+        <service class="Geexu\Cmsblockapi\Api\SliderRepositoryInterface" method="getProductsbyCategoryUrl"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-product-selable-qty/productsku" method="GET">
+        <service class="Geexu\Cmsblockapi\Api\SliderRepositoryInterface" method="getProductSalableQty"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-discount-percentage/productsku" method="GET">
+        <service class="Geexu\Cmsblockapi\Api\SliderRepositoryInterface" method="getProductDiscount"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/product/sizechart" method="GET">
+        <service class="Geexu\Cmsblockapi\Api\SliderRepositoryInterface" method="getSizechart"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

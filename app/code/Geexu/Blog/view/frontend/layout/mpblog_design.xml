@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Mageplaza_Core::css/grid-mageplaza.css"/>
+        <css src="Mageplaza_Core::css/font-awesome.min.css"/>
+        <css src="Mageplaza_Core::css/owl.carousel.css"/>
+        <css src="Mageplaza_Core::css/owl.theme.css"/>
+    </head>
+    <body>
+        <referenceContainer name="columns">
+            <container name="div.sidebar.main" htmlTag="div" htmlClass="sidebar sidebar-main" after="main">
+                <container name="blog.sidebar.main" as="sidebar_main" label="Sidebar Main">
+                    <block class="Geexu\Blog\Block\Sidebar\Search" name="mpblog.sidebar.search" template="sidebar/search.phtml" ifconfig="blog/sidebar/search/enable_search"/>
+                    <block class="Geexu\Blog\Block\Sidebar\MostView" name="mpblog.sidebar.mostview" template="sidebar/mostview.phtml"/>
+                    <block class="Geexu\Blog\Block\Category\Widget" name="mpblog.sidebar.category" template="category/widget.phtml"/>
+                    <block class="Geexu\Blog\Block\MonthlyArchive\Widget" name="mpblog.sidebar.monthly" template="monthly/widget.phtml"/>
+                    <block class="Geexu\Blog\Block\Topic\Widget" name="mpblog.sidebar.topic" template="topic/widget.phtml"/>
+                    <block class="Geexu\Blog\Block\Tag\Widget" name="mpblog.sidebar.tag" template="tag/widget.phtml"/>
+                </container>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="head.additional">
+            <block class="Geexu\Blog\Block\Design" name="mpblog.design" template="Geexu_Blog::design.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

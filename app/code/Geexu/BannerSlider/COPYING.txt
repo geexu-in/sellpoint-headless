@@ -1,0 +1,5 @@
+
+
+This file included in Geexu/BannerSlider is licensed under Geexu
+
+Please see LICENSE.txt for the full text

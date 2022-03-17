@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- <add id="Geexu_Core::menu" title="Geexu" module="Geexu_Core" sortOrder="50" resource="Geexu_Core::menu"/> -->
+        <!-- <add id="Geexu_Core::documentation" title="Documentations" module="Geexu_Core" sortOrder="5" resource="Geexu_Core::documentation" parent="Geexu_Core::menu"/> -->
+        <!-- <add id="Geexu_Core::marketplace" title="Geexu Marketplace" module="Geexu_Core" sortOrder="10" action="adminhtml/system_config/edit/section/mpmarketplace" resource="Geexu_Core::marketplace" parent="Geexu_Core::documentation"/>-->
+        <!-- <add id="Geexu_Core::userguide" title="User Guides" module="Geexu_Core" sortOrder="20" action="mpcore/index/userguide" resource="Geexu_Core::userguide" parent="Geexu_Core::documentation"/> -->
+    </menu>
+</config>

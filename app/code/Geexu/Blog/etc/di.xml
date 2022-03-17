@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Grid collection-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="geexu_blog_post_listing_data_source" xsi:type="string">Geexu\Blog\Model\ResourceModel\Post\Grid\Collection</item>
+                <item name="geexu_blog_tag_listing_data_source" xsi:type="string">Geexu\Blog\Model\ResourceModel\Tag\Grid\Collection</item>
+                <item name="geexu_blog_topic_listing_data_source" xsi:type="string">Geexu\Blog\Model\ResourceModel\Topic\Grid\Collection</item>
+                <item name="geexu_blog_comment_listing_data_source" xsi:type="string">Geexu\Blog\Model\ResourceModel\Comment\Grid\Collection</item>
+                <item name="geexu_blog_author_listing_data_source" xsi:type="string">Geexu\Blog\Model\ResourceModel\Author\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Geexu\Blog\Model\ResourceModel\Author\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">geexu_blog_author</argument>
+            <argument name="resourceModel" xsi:type="string">Geexu\Blog\Model\ResourceModel\Author</argument>
+        </arguments>
+    </type>
+    <virtualType name="Geexu\Blog\Model\ResourceModel\Post\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">geexu_blog_post</argument>
+            <argument name="resourceModel" xsi:type="string">Geexu\Blog\Model\ResourceModel\Post</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Geexu\Blog\Model\ResourceModel\Tag\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">geexu_blog_tag</argument>
+            <argument name="resourceModel" xsi:type="string">Geexu\Blog\Model\ResourceModel\Tag</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Geexu\Blog\Model\ResourceModel\Topic\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">geexu_blog_topic</argument>
+            <argument name="resourceModel" xsi:type="string">Geexu\Blog\Model\ResourceModel\Topic</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\App\Rss\RssManagerInterface">
+        <arguments>
+            <argument name="dataProviders" xsi:type="array">
+                <item name="blog_posts" xsi:type="string">Geexu\Blog\Block\Post\Rss\Lists</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Sitemap\Model\Sitemap" type="Geexu\Blog\Model\Sitemap"/>
+
+    <preference for="Geexu\Blog\Api\Data\PostInterface" type="Geexu\Blog\Model\Post" />
+    <preference for="Geexu\Blog\Api\Data\CommentInterface" type="Geexu\Blog\Model\Comment" />
+    <preference for="Geexu\Blog\Api\Data\TagInterface" type="Geexu\Blog\Model\Tag" />
+    <preference for="Geexu\Blog\Api\Data\CategoryInterface" type="Geexu\Blog\Model\Category" />
+    <preference for="Geexu\Blog\Api\Data\TopicInterface" type="Geexu\Blog\Model\Topic" />
+    <preference for="Geexu\Blog\Api\Data\AuthorInterface" type="Geexu\Blog\Model\Author" />
+    <preference for="Geexu\Blog\Api\Data\BlogConfigInterface" type="Geexu\Blog\Model\BlogConfig" />
+    <preference for="Geexu\Blog\Api\Data\MonthlyArchiveInterface" type="Geexu\Blog\Model\MonthlyArchive" />
+    <preference for="Geexu\Blog\Api\Data\Config\GeneralInterface" type="Geexu\Blog\Model\Config\General" />
+    <preference for="Geexu\Blog\Api\Data\Config\SidebarInterface" type="Geexu\Blog\Model\Config\Sidebar" />
+    <preference for="Geexu\Blog\Api\Data\Config\SeoInterface" type="Geexu\Blog\Model\Config\Seo" />
+    <preference for="Geexu\Blog\Api\BlogRepositoryInterface" type="Geexu\Blog\Model\Api\BlogRepository" />
+
+    <preference for="Geexu\Blog\Api\Data\SearchResult\PostSearchResultInterface" type="Geexu\Blog\Model\ResourceModel\Post\Collection" />
+    <preference for="Geexu\Blog\Api\Data\SearchResult\CategorySearchResultInterface" type="Geexu\Blog\Model\ResourceModel\Category\Collection" />
+    <preference for="Geexu\Blog\Api\Data\SearchResult\TagSearchResultInterface" type="Geexu\Blog\Model\ResourceModel\Tag\Collection" />
+    <preference for="Geexu\Blog\Api\Data\SearchResult\TopicSearchResultInterface" type="Geexu\Blog\Model\ResourceModel\Topic\Collection" />
+    <preference for="Geexu\Blog\Api\Data\SearchResult\CommentSearchResultInterface" type="Geexu\Blog\Model\ResourceModel\Comment\Collection" />
+</config>

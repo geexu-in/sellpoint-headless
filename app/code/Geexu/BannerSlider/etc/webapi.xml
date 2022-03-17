@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- test api sliders  -->
+    <route url="/V1/geexu-banner/sliders" method="GET">
+        <service class="Geexu\BannerSlider\Api\BannerSliderRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-banner/sliders/list" method="GET">
+        <service class="Geexu\BannerSlider\Api\BannerSliderRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-banner/sliders/add" method="POST">
+        <service class="Geexu\BannerSlider\Api\BannerSliderRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-banner/sliders/delete" method="DELETE">
+        <service class="Geexu\BannerSlider\Api\BannerSliderRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- test api slides  -->
+    <route url="/V1/geexu-banner/slides" method="GET">
+        <service class="Geexu\BannerSlider\Api\BannersRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-banner/slides/list" method="GET">
+        <service class="Geexu\BannerSlider\Api\BannersRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-banner/slides/delete" method="DELETE">
+        <service class="Geexu\BannerSlider\Api\BannersRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-banner/slides/add" method="POST">
+        <service class="Geexu\BannerSlider\Api\BannersRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

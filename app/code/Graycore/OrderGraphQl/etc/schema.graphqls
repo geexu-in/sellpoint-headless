@@ -1,0 +1,117 @@
+type Query {
+    graycoreCustomerOrders(
+        orderNumber: String
+    ): GraycoreOrders @doc(description: "Retrieves all order associated with the customer's account. Throws an error if there is not an authorized customer.") @resolver(class: "Graycore\\OrderGraphQl\\Model\\CustomerOrders") @cache(cacheable: false)
+    graycoreGuestOrders(
+        cartId: String!
+    ): GraycoreOrders @doc(description: "Retrieves the order associated with the specified cart. Throws an error if the cart is not found or there isn't an order associated with it.") @resolver(class: "Graycore\\OrderGraphQl\\Model\\GuestOrders") @cache(cacheable: false)
+}
+
+type GraycoreOrderAddress {
+    # DaffOrderAddress
+    order_id: Int @doc(description: "The order ID")
+    # DaffPersonalAddress
+    prefix: String @doc(description: "An honorific such as Dr. Mr. or Mrs.")
+    suffix: String @doc(description: "A value such as Sr. Jr. or III")
+    firstname: String @doc(description: "The first name of the person associated with the shipping/billing address")
+    middlename: String @doc(description: "The middle name of the person associated with the shipping/billing address")
+    lastname: String @doc(description: "The family name of the person associated with the shipping/billing address")
+    telephone: String @doc(description: "The telephone number")
+    email: String @doc(description: "The customer email associated with this address.")
+    # DaffAddress
+    street: [String]  @doc(description: "The street address")
+    city: String @doc(description: "The city or town")
+    region: String  @doc(description: "The region name")
+    region_id: String @doc(description: "The two character region code")
+    country_code: String @doc(description: "The two character code for the customer's country")
+    postcode: String @doc(description: "The customers ZIP or postal code")
+}
+
+type GraycoreOrderItem {
+    qty_ordered: Int @doc(description: "The number of items ordered.")
+    qty_canceled: Int @doc(description: "The number of items cancelled.")
+    qty_fulfilled: Int @doc(description: "The number of items fulfilled.")
+    image: String @doc(description: "The image of the product for this order item.")
+    order_id: String @doc(description: "The order ID.")
+    created_at: String
+    updated_at: String
+    product_id: Int @doc(description: "The ID of the product for this order item.")
+    sku: String @doc(description: "The SKU of the product for this order item.")
+    name: String @doc(description: "The name of the order item.")
+    weight: Float @doc(description: "The weight for this individual order item.")
+    qty: Int @doc(description: "The number of items for this order item.")
+    price: Float @doc(description: "The total price for this order item.")
+    discount_percent: Float @doc(description: "The discount percentage for this order item.")
+    discount_amount: Float @doc(description: "The discount amount for this order item.")
+    tax_percent: Float @doc(description: "The tax percent for this order item.")
+    tax_amount: Float @doc(description: "The tax amount for this order item.")
+    row_total: Float @doc(description: "The row total for this order item.")
+    row_total_with_discount: Float @doc(description: "The row total for this order item. Includes all discounts.")
+    row_weight: Float @doc(description: "The total weight for these order item.")
+    tax_before_discount: Float
+}
+
+type GraycoreOrderShipmentTracking {
+    tracking_number: String @doc(description: "The tracking number for the shipment.")
+    carrier: String @doc(description: "The carrier being used for the shipment.")
+    title: String @doc(description: "The type of the shipping method used for the shipment.")
+}
+
+type GraycoreOrderShipmentItem {
+    item: GraycoreOrderItem @doc(description: "The order item associated with this shipment item.")
+    qty: Int @doc(description: "The quantity of the item included in this shipment item.")
+}
+
+type GraycoreOrderShipment {
+    tracking: [GraycoreOrderShipmentTracking] @doc(description: "The tracking for this shipment.")
+    items: [GraycoreOrderShipmentItem] @doc(description: "The items included in this shipment.")
+}
+
+type GraycoreOrderPayment {
+    payment_id: Int @doc(description: "The payment ID.")
+    order_id: Int @doc(description: "The order ID.")
+    method: String @doc(description: "The payment method used to place the order.")
+    cc_type: String @doc(description: "The credit card type.")
+    cc_last4: String @doc(description: "The credit card number's last 4 digits.")
+    cc_owner: String @doc(description: "The credit card owner.")
+    cc_exp_month: String @doc(description: "The credit card month of expiration.")
+    cc_exp_year: String @doc(description: "The credit card year of expiration.")
+}
+
+type GraycoreOrderInvoice {
+    items: [GraycoreOrderShipmentItem] @doc(description: "The items being shipped for this invoice.")
+    grand_total: Float @doc(description: "The grand total of this invoice.")
+    subtotal: Float @doc(description: "The subtotal of this invoice excluding taxes.")
+    discount: Float @doc(description: "The amount of total discounts applied to this invoice.")
+    tax: Float @doc(description: "The amount of total tax applied to this invoice.")
+    shipping: Float @doc(description: "The shipping cost for this invoice.")
+    billing_address: GraycoreOrderAddress @doc(description: "The billing address of this invoice.")
+    shipping_address: GraycoreOrderAddress @doc(description: "The shipping asddress of this invoice.")
+    payment: GraycoreOrderPayment @doc(description: "The payment used for this invoice.")
+}
+
+type GraycoreOrder @doc(description: "Order mapping fields") {
+    id: Int! @doc(description: "The order ID.")
+    order_number: String @doc(description: "The order number")
+    customer_id: Int @doc(description: "The customer ID.")
+    created_at: String @doc(description: "When the order was created.")
+    updated_at: String @doc(description: "When the order was last updated.")
+    grand_total: Float @doc(description: "The grand total of the order.")
+    subtotal: Float @doc(description: "The subtotal of the order excluding taxes.")
+    discount: Float @doc(description: "The amount of total discounts applied to this order.")
+    tax: Float @doc(description: "The amount of total tax applied to this order.")
+    shipping: Float @doc(description: "The shipping cost for this order.")
+    status: String @doc(description: "The current status of the order.")
+    applied_codes: [String]! @doc(description: "Any coupon codes that have been applied to the order.")
+    items: [GraycoreOrderItem] @doc(description: "All items included in the order.")
+    billing_address: GraycoreOrderAddress @doc(description: "The billing address for the order.")
+    shipping_address: GraycoreOrderAddress @doc(description: "The shipping address for the order.")
+    shipments: [GraycoreOrderShipment] @doc(description: "The shipments of the order.")
+    payment: GraycoreOrderPayment @doc(description: "The payment for the order.")
+    invoices: [GraycoreOrderInvoice] @doc(description: "The invoices for the order.")
+    credits: [GraycoreOrderInvoice] @doc(description: "Any credits applied to the order.")
+}
+
+type GraycoreOrders {
+    orders: [GraycoreOrder] @doc(description: "Array of orders")
+}

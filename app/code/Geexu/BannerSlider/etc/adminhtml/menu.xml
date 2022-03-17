@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Geexu::banner_slider" module="Geexu_BannerSlider"  parent="Magento_Backend::content" resource="Magento_Backend::content" sortOrder="9999" title="Geexu Banners"/>
+		<add action="geexu_bannerslider/bannerslider/index" id="Geexu_BannerSlider::geexu_bannerslider_bannerslider" module="Geexu_BannerSlider" parent="Geexu::banner_slider" resource="Magento_Backend::content" sortOrder="9999" title="Manage Banners"/>
+		<add action="geexu_bannerslider/banners/index" id="Geexu_BannerSlider::geexu_bannerslider_banners" module="Geexu_BannerSlider" parent="Geexu::banner_slider" resource="Magento_Backend::content" sortOrder="9999" title="Banners"/>
+	</menu>
+</config>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/bangerkuwranger/couponcode/getCartRule/" method="GET">
+        <service class="Bangerkuwranger\Couponcodeapi\Api\WebServiceRepositoryInterface" method="getCartRule"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/bangerkuwranger/couponcode/getCouponCode/" method="POST">
+        <service class="Bangerkuwranger\Couponcodeapi\Api\WebServiceRepositoryInterface" method="getCouponCode"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/bangerkuwranger/couponcode/getCustIdByEmail/" method="POST">
+        <service class="Bangerkuwranger\Couponcodeapi\Api\WebServiceRepositoryInterface" method="getCustIdByEmail"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/bangerkuwranger/activerule/couponcode/" method="GET">
+        <service class="Bangerkuwranger\Couponcodeapi\Api\WebServiceRepositoryInterface" method="getCartAvailableRule"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/carts/coupons/:cartId" method="GET">
+        <service class="Magento\Quote\Api\CouponManagementInterface" method="get"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

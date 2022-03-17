@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Geexu\Blog\Block\Adminhtml\Import\Edit\Import" template="Geexu_Blog::import/form/import.phtml" name="mp.import.form.before" as="mp_form_before"/>
+            <block class="Geexu\Blog\Block\Adminhtml\Import\Edit" name="geexu_blog_import_edit"/>
+        </referenceContainer>
+    </body>
+</page>

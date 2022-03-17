@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- test api sliders  -->
+    <route url="/V1/geexu-productslider/get" method="GET">
+        <service class="Ecomteck\ProductSlider\Api\SliderRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-productslider/add" method="POST">
+        <service class="Ecomteck\ProductSlider\Api\SliderRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-productslider/list" method="GET">
+        <service class="Ecomteck\ProductSlider\Api\SliderRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-productslider/delete" method="DELETE">
+        <service class="Ecomteck\ProductSlider\Api\SliderRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/geexu-productslider/getsliderproducts" method="GET">
+        <service class="Ecomteck\ProductSlider\Api\SliderRepositoryInterface" method="getProductsBySliderId"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>
